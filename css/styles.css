@@ -1,0 +1,74 @@
+/* Стилі для всього тіла */
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+	color: #fff;
+	font-family: Arial, sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	text-align: center;
+}
+a{
+	color: #fff;
+}
+.m_top{
+	margin-top: 20px;
+}
+/* Контейнер */
+.container {
+	width: 800px;
+	max-width: 80%;
+	padding: 20px;
+	background-color: #222;
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Поля вводу тексту */
+textarea, select {
+	width: 90%;
+	padding: 12px;
+	margin-top: 12px;
+	font-size: 16px;
+	background-color: #333;
+	color: #fff;
+	border: 1px solid #555;
+	border-radius: 6px;
+	resize: none;
+}
+
+/* Кнопка */
+button {
+	margin-top: 12px;
+	padding: 12px 20px;
+	font-size: 16px;
+	color: #fff;
+	background-color: #444;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+/* Ефект наведення на кнопку */
+button:hover {
+	background-color: #555;
+}
+
+textarea {
+	text-transform: uppercase; /* Текст автоматично перетворюється у великі букви */
+	width: 90%; /* Ширина на всю форму */
+	height: 100px; /* Фіксована висота */
+	margin-top: 12px; /* Відступ зверху */
+	font-size: 16px; /* Збільшений розмір тексту */
+	background-color: #333; /* Темний фон */
+	color: #fff; /* Білий текст */
+	border: 1px solid #555; /* Легка рамка */
+	border-radius: 2px; /* Закруглені кути */
+	padding: 12px; /* Внутрішні відступи */
+	resize: none; /* Заборонено змінювати розмір вручну */
+}
+
