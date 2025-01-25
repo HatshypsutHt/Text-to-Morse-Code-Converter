@@ -149,7 +149,7 @@
 			<button onclick="playMorse()">Play</button>
 			<button onclick="stopMorse()">Stop</button>
 		</div>
-		<p class="m_top"><a href="/morse/">Back</a></p>
+		<p class="m_top"><a href="/">Back</a></p>
 	</div>
 </body>
 </html>
