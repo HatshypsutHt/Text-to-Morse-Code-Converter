@@ -1,25 +1,25 @@
 <?php
-	// Заголовок для коректного кодування
+	// Header for correct encoding
 	header('Content-Type: text/html; charset=utf-8');
 
-	// Отримання даних із форми
+	// Retrieve data from the form
 	$language = $_POST['language'] ?? 'en';
-	$text = trim($_POST['text'] ?? ''); // Видалення зайвих пробілів
+	$text = trim($_POST['text'] ?? ''); // Remove extra spaces
 
-	// Перевірка на порожнє поле
+	// Check for empty input
 	if (empty($text)) {
-		header('Location: https://demo.web-rynok.site/morse/');
+		header('Location: /');
 		exit; 
 	}
 
-	// Завантаження словника
+	// Load the dictionary
 	$morseFile = __DIR__ . "/languages/language.php";
 	if (!file_exists($morseFile)) {
-		die('Помилка: Словник для вибраної мови не знайдено.');
+		die('Error: Dictionary for the selected language not found.');
 	}
 	$morseCode = require $morseFile;
 
-	// Функція для перекладу тексту в азбуку Морзе
+	// Function to translate text to Morse code
 	function textToMorse($text, $morseCode) {
 		$text = mb_strtoupper(trim($text), 'UTF-8');
 		$result = [];
@@ -35,7 +35,7 @@
 
 		$error = '';
 		if (!empty($missingChars)) {
-			$error = '<p style="color: red;">Наступні символи не знайдено у словнику: ' . implode(', ', array_unique($missingChars)) . '</p>';
+			$error = '<p style="color: red;">The following characters were not found in the dictionary: ' . implode(', ', array_unique($missingChars)) . '</p>';
 		}
 
 		return [
@@ -44,60 +44,60 @@
 		];
 	}
 
-	// Переклад тексту
+	// Translate text
 	$result = textToMorse($text, $morseCode);
 	$morseResult = $result['translation'];
 	$error = $result['error'];
 ?>
 
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Результат перекладу - Конвертер тексту в азбуку Морзе</title>
+	<title>Translation Result - Text to Morse Code Converter</title>
 	<!-- Favicons -->
-	<link rel="shortcut icon" type="image/png" href="https://drog.info/images/favicon.png"/>
-	<!-- META дані для SEO -->
+	<link rel="shortcut icon" type="image/png" href="/images/favicon.png"/>
+	<!-- META data for SEO -->
 	<meta property="article:published_time" content="2022-04-21T17:20:00+03:00"/>
 	<meta property="article:modified_time" content="<?= date('c'); ?>"/>
-	<meta property="og:site_name" content="Конвертер Морзе"/>
-	<meta property="og:locale" content="uk-UA"/>
+	<meta property="og:site_name" content="Morse Converter"/>
+	<meta property="og:locale" content="en-US"/>
 	<meta property="og:type" content="website"/>
 	<meta property="og:url" content="<?= "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>"/>
-	<meta property="og:title" content="Результат перекладу - Конвертер тексту в азбуку Морзе"/>
-	<meta property="og:description" content="Наш сайт – це зручний інструмент для перекладу тексту в азбуку Морзе. Ви можете ввести будь-який текст українською чи англійською мовами, і отримати його миттєвий переклад у вигляді кодів Морзе."/>
+	<meta property="og:title" content="Translation Result - Text to Morse Code Converter"/>
+	<meta property="og:description" content="Our site is a convenient tool for translating text into Morse code. You can enter any text in English or other supported languages, and instantly get its translation in Morse codes."/>
 	<meta property="og:image:width" content="980"/>
 	<meta property="og:image:height" content="980"/>
 	<meta name="twitter:card" content="summary_large_image"/>
 	<meta property="og:image" content="/images/bg-img.webp"/>
-	<link rel="stylesheet" href="/morse/css/styles.css">
+	<link rel="stylesheet" href="/css/styles.css">
 	<script>
 		let stopPlayback = false;
 
-		// Функція копіювання тексту у буфер обміну
+		// Function to copy text to clipboard
 		function copyToClipboard() {
 			const morseField = document.getElementById('morseOutput');
 			morseField.select();
 			document.execCommand('copy');
-			alert('Текст скопійовано в буфер обміну!');
+			alert('Text copied to clipboard!');
 		}
 
-		// Програвач азбуки Морзе
+		// Morse code player
 		async function playMorse() {
 			stopPlayback = false;
 			const morseCode = document.getElementById('morseOutput').value;
 
-			// Шляхи до звуків
-			const shortSound = new Audio('/morse/sounds/01.wav'); // Короткий сигнал
-			const longSound = new Audio('/morse/sounds/02.wav'); // Довгий сигнал
+			// Paths to sounds
+			const shortSound = new Audio('/sounds/01.wav'); // Short signal
+			const longSound = new Audio('/sounds/02.wav'); // Long signal
 
-			// Час пауз
-			const shortPause = 400; // Пауза між сигналами
-			const longPause = 1000; // Пауза між символами
-			const wordPause = 1400; // Пауза між словами
+			// Pause durations
+			const shortPause = 400; // Pause between signals
+			const longPause = 1000; // Pause between characters
+			const wordPause = 1400; // Pause between words
 
-			// Пробігаємося по кожному символу Морзе
+			// Iterate through each Morse code character
 			for (const char of morseCode.split('')) {
 				if (stopPlayback) break;
 
@@ -112,10 +112,10 @@
 				}
 			}
 
-			if (!stopPlayback) alert('Відтворення завершено!');
+			if (!stopPlayback) alert('Playback finished!');
 		}
 
-		// Програвання одного сигналу
+		// Play a single sound
 		function playSound(sound, pause) {
 			return new Promise((resolve) => {
 				sound.play();
@@ -123,12 +123,12 @@
 			});
 		}
 
-		// Функція для паузи
+		// Sleep function for pauses
 		function sleep(ms) {
 			return new Promise((resolve) => setTimeout(resolve, ms));
 		}
 
-		// Зупинка 
+		// Stop playback
 		function stopMorse() {
 			stopPlayback = true;
 		}
@@ -136,20 +136,20 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Результат перекладу</h1>
-		<!-- Виведення попереджень -->
+		<h1>Translation Result</h1>
+		<!-- Display warnings -->
 		<?php if (!empty($error)): ?>
 			<div><?= $error; ?></div>
 		<?php endif; ?>
-		<p><strong>Введений текст:</strong> <?= htmlspecialchars($text); ?></p>
-		<label for="morseOutput"><strong>Азбука Морзе:</strong></label>
+		<p><strong>Entered Text:</strong> <?= htmlspecialchars($text); ?></p>
+		<label for="morseOutput"><strong>Morse Code:</strong></label>
 		<textarea id="morseOutput" readonly><?= htmlspecialchars($morseResult); ?></textarea>
 		<div style="margin-top: 15px;">
-			<button onclick="copyToClipboard()">Скопіювати в пам'ять</button>
-			<button onclick="playMorse()">Озвучити</button>
-			<button onclick="stopMorse()">Зупинити</button>
+			<button onclick="copyToClipboard()">Copy to Clipboard</button>
+			<button onclick="playMorse()">Play</button>
+			<button onclick="stopMorse()">Stop</button>
 		</div>
-		<p class="m_top"><a href="/morse/">Назад</a></p>
+		<p class="m_top"><a href="/morse/">Back</a></p>
 	</div>
 </body>
 </html>
