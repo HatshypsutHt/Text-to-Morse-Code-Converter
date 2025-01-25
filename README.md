@@ -22,4 +22,6 @@ Custom Extensions:
 Additional symbols and obsolete characters are also included to ensure compatibility with older and specialized text.
 
 Usage:
-This script is designed to be imported into a PHP project and can be used as the basis for text-to-Morse code converters. For example:
+This script is designed to be imported into a PHP project and can be used as the basis for text-to-Morse code converters. 
+
+Demo: https://morse.tigra.site/
