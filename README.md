@@ -24,4 +24,4 @@ Additional symbols and obsolete characters are also included to ensure compatibi
 Usage:
 This script is designed to be imported into a PHP project and can be used as the basis for text-to-Morse code converters. 
 
-Demo: https://morse.tigra.site/
+Demo: https://scripts.tigra.site/morse/
